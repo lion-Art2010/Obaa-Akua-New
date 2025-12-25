@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Christmas Surprise ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #ff758c, #ff7eb3);
+  text-align: center;
+  color: white;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+/* Start Screen */
+#startScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #ff758c, #ff7eb3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  z-index: 10;
+}
+
+img, video {
+  width: 300px;
+  margin: 10px;
+  border-radius: 15px;
+}
+
+/* Snow */
+.snow {
+  position: fixed;
+  top: -10px;
+  color: white;
+  font-size: 14px;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+  }
+}
+
+.message {
+  font-size: 18px;
+  max-width: 600px;
+  margin: 20px auto;
+  line-height: 1.6;
+}
+</style>
+</head>
+
+<body>
+
+<!-- CLICK TO START -->
+<div id="startScreen" onclick="startSurprise()" style="display:none;">
+  <h1>🎄 Click to Start ❤️</h1>
+  <p>A little Christmas surprise for you 💕</p>
+</div>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+  <source src="ss.mp3" type="audio/mpeg">
+</audio>
+
+<!-- MAIN CONTENT -->
+<div id="content" style="display:none;">
+  <h1>🎄 Merry Christmas Obaa Akua ❤️</h1>
+  <p id="typing"></p>
+
+  <p class="message">
+    Merry Christmas❤️<br>
+    Thank you for making my days happier, my heart, and my favorite person.<br>
+    So lucky to have you, Every moment with you is a gift 🎁🎄, can’t wait to make more memories with you 💕.
+  </p>
+
+  <!-- PICTURES -->
+  <img src="kk.jpeg">
+  <img src="ll.jpeg">
+
+  <!-- VIDEO (AUTOPLAY, MUTED) -->
+  <video autoplay muted loop playsinline controls>
+    <source src="aa.mp4" type="video/mp4">
+  </video>
+</div>
+
+<script>
+// 🎄 CHECK IF TODAY IS CHRISTMAS
+const now = new Date();
+const month = now.getMonth(); // 0 = Jan, 11 = Dec
+const day = now.getDate();
+
+if (month === 11 && day === 25) {
+    // It's Christmas 🎄 — show the content
+    document.getElementById("startScreen").style.display = "flex";
+} else {
+    // Not Christmas — hide everything and show a message
+    document.body.innerHTML = `
+        <div style="display:flex; justify-content:center; align-items:center; height:100vh; text-align:center; font-family:Arial; color:white; background: linear-gradient(to right, #ff758c, #ff7eb3); padding:20px;">
+            <h1>🎄 Wait until Christmas! ❤️</h1>
+            <p>Come back on December 25 to see your surprise 💕</p>
+        </div>
+    `;
+}
+
+/* START */
+function startSurprise() {
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("content").style.display = "block";
+  document.getElementById("music").play();
+  startTyping();
+  startSnow();
+}
+
+/* TYPING TEXT */
+const text = "I love you so much ❤️ Thank you for making my life beautiful. This Christmas is special because of you 🎄✨";
+let index = 0;
+function startTyping() {
+  setInterval(() => {
+    if (index < text.length) {
+      document.getElementById("typing").innerHTML += text.charAt(index);
+      index++;
+    }
+  }, 80);
+}
+
+/* SNOW */
+function startSnow() {
+  setInterval(() => {
+    const snow = document.createElement("div");
+    snow.className = "snow";
+    snow.innerHTML = "❄";
+    snow.style.left = Math.random() * window.innerWidth + "px";
+    snow.style.animationDuration = Math.random() * 3 + 2 + "s";
+    document.body.appendChild(snow);
+    setTimeout(() => snow.remove(), 5000);
+  }, 200);
+}
+</script>
+
+</body>
+</html>
